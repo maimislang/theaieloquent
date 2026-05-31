@@ -447,13 +447,13 @@
   }
 
   .number-card p {
-    font-size: 0.82rem;
-    color: #5A5A54;
-    line-height: 1.6;
+    font-size: 1rem;
+    color: var(--white);
+    line-height: 1.65;
     font-weight: 300;
   }
 
-  .number-card a { color: #5A5A54; text-decoration: underline; text-underline-offset: 3px; }
+  .number-card a { color: rgba(255,255,255,0.6); text-decoration: underline; text-underline-offset: 3px; }
   .number-card a:hover { color: var(--yellow); }
 
   /* UNSTUCK */
@@ -464,9 +464,9 @@
   }
 
   .unstuck-inner {
-    max-width: var(--max); margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 100px; align-items: start;
+    max-width: 680px; margin: 0 auto;
+    display: block;
+    text-align: left;
   }
 
   .unstuck h2 {
@@ -571,8 +571,8 @@
 
   .footer-logo em { font-style: italic; color: var(--gray-400); }
 
-  footer p { font-size: 0.8rem; color: #3A3A36; margin-bottom: 6px; font-weight: 300; }
-  footer a { color: #4A4A44; text-decoration: none; }
+  footer p { font-size: 0.9rem; color: rgba(255,255,255,0.5); margin-bottom: 6px; font-weight: 300; }
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
   footer a:hover { color: var(--yellow); }
 
   .footer-links {
@@ -582,7 +582,7 @@
     flex-wrap: wrap;
   }
 
-  .footer-links a { font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 300; }
+  .footer-links a { font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 300; color: rgba(255,255,255,0.5); }
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
@@ -603,7 +603,7 @@
 
 <nav>
   <a href="/" class="nav-logo">The AI <em>Eloquent</em></a>
-  <a href="#diagnostic" class="nav-cta">Take the Test</a>
+  <a href="quiz.html" class="nav-cta">Take the Test</a>
 </nav>
 
 <section>
@@ -613,7 +613,7 @@
     <h1>You do not need to be in the office every day. You need to be <em>AI eloquent.</em></h1>
     <p class="hero-sub">Metro Manila costs you 2–4 hours every day. AI gives them back. Find out where you stand, and what to do next.</p>
     <div>
-      <a href="#diagnostic" class="btn-primary">Free AI Fluency Diagnostic Test</a>
+      <a href="quiz.html" class="btn-primary">Free AI Fluency Diagnostic Test</a>
       <br style="display:none;">
       <a href="#how-it-works" class="btn-secondary" style="display:inline-block; margin-top:12px; margin-left:0;">How it works</a>
     </div>
@@ -621,7 +621,7 @@
   <div class="hero-right">
     <div class="hero-stat">
       <h3><a href="https://www.dof.gov.ph/opening-remarksmetro-manila-subway-project-mmspworksite-visit-and-press-briefing/" target="_blank" rel="noopener">₱3.5B</a></h3>
-      <p>Lost daily to Metro Manila traffic congestion, per <a href="https://www.dof.gov.ph/opening-remarksmetro-manila-subway-project-mmspworksite-visit-and-press-briefing/" target="_blank" rel="noopener">JICA study, Department of Finance</a></p>
+      <p>Lost daily to Metro Manila traffic congestion, per <a href="https://www.dof.gov.ph/opening-remarksmetro-manila-subway-project-mmspworksite-visit-and-press-briefing/" target="_blank" rel="noopener">JICA study</a></p>
     </div>
     <div class="hero-stat">
       <h3><a href="https://mb.com.ph/2024/2/26/metro-manila-subway-to-prevent-p2-5-billion-in-traffic-related-losses" target="_blank" rel="noopener">2–4 hrs</a></h3>
@@ -685,7 +685,7 @@
       </div>
       <div class="level-card level-card-cta">
         <p>The diagnostic test tells you your level, your gaps, and the exact tools that will move you forward.</p>
-        <a href="#" class="btn-primary" style="font-size: 0.78rem; padding: 12px 24px; align-self: flex-start;">Take the free diagnostic test →</a>
+        <a href="quiz.html" class="btn-primary" style="font-size: 0.78rem; padding: 12px 24px; align-self: flex-start;">Take the free diagnostic test →</a>
       </div>
     </div>
   </div>
@@ -726,11 +726,11 @@
     <div class="numbers-grid">
       <div class="number-card">
         <h3>₱3.5B</h3>
-        <p>Lost daily to Metro Manila traffic, per <a href="https://www.dof.gov.ph/opening-remarksmetro-manila-subway-project-mmspworksite-visit-and-press-briefing/" target="_blank" rel="noopener">JICA study, Department of Finance</a></p>
+        <p>Lost daily to Metro Manila traffic, per <a href="https://www.dof.gov.ph/opening-remarksmetro-manila-subway-project-mmspworksite-visit-and-press-briefing/" target="_blank" rel="noopener">JICA study</a></p>
       </div>
       <div class="number-card">
         <h3>20–30%</h3>
-        <p>Reduction in operational costs for companies adopting AI, per <a href="https://ardem.com/bpo/ai-cost-reduction-business-process-automation/" target="_blank" rel="noopener">McKinsey research</a></p>
+        <p>Reduction in operational costs for companies adopting AI, per <a href="https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/superagency-in-the-workplace-empowering-people-to-unlock-ais-full-potential-at-work" target="_blank" rel="noopener">McKinsey research</a></p>
       </div>
       <div class="number-card">
         <h3>96%</h3>
@@ -754,10 +754,10 @@
 </section>
 
 <section class="cta-final">
-  <h2>Ten minutes. One diagnostic test. Your next move.</h2>
-  <p>Free for everyone to try. No credit card. No jargon. Just an honest read of where you are — and a clear path to where you need to be.</p>
-  <a href="#" class="btn-dark">TAKE THE TEST</a>
-  <p class="cta-note">Free for individuals &nbsp;·&nbsp; ₱499/month for SME cohort &nbsp;·&nbsp; Corporate pricing on request</p>
+  <h2>Ten minutes. One diagnostic test.<br>Your next move.</h2>
+  <p>Free for everyone to try. No credit card. No jargon. Just an honest read of where you are, and a clear path to where you need to be.</p>
+  <a href="quiz.html" class="btn-dark">TAKE THE TEST</a>
+  <p class="cta-note">Free for individuals &nbsp;·&nbsp; ₱499/month for SME cohort &nbsp;·&nbsp; Corporate pricing upon request</p>
 </section>
 
 <footer>
@@ -770,7 +770,7 @@
     <a href="#">For Teams</a>
     <a href="#">Unstuck</a>
   </div>
-  <p style="margin-top: 36px; font-size: 0.72rem; color: #2A2A26;">© 2026 The AI Eloquent. Philippines.</p>
+  <p style="margin-top: 36px; font-size: 0.78rem; color: rgba(255,255,255,0.3);">© 2026 The AI Eloquent. Philippines.</p>
 </footer>
 
 </body>
