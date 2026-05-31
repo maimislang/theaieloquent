@@ -31,7 +31,7 @@ body {
   font-family: var(--font-body);
   background: var(--white);
   color: var(--ink);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
@@ -93,9 +93,11 @@ body {
   background: var(--black);
   color: var(--white);
   padding: 80px 48px 72px;
+  display: flex;
+  justify-content: center;
 }
 
-.intro-hero-inner { max-width: 600px; }
+.intro-hero-inner { max-width: 600px; width: 100%; }
 
 .hero-eyebrow {
   display: inline-block;
@@ -149,8 +151,15 @@ body {
 .intro-body {
   padding: 56px 48px;
   flex: 1;
-  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.intro-body h2,
+.intro-body > p { max-width: 600px; width: 100%; }
+
+.pillars { max-width: 600px; width: 100%; }
 
 .intro-body h2 {
   font-family: var(--font-display);
@@ -159,20 +168,43 @@ body {
 }
 
 .intro-body > p {
-  font-size: 0.9rem; font-weight: 300;
+  font-size: 1rem; font-weight: 300;
   color: var(--gray-400); line-height: 1.75;
   margin-bottom: 36px;
 }
 
 .pillars {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-bottom: 40px;
+  max-width: 600px; width: 100%;
 }
 
-.pillar {
-  background: var(--gray-50);
+.pillars .pillar:nth-child(4),
+.pillars .pillar:nth-child(5) {
+  grid-column: span 1;
+}
+
+.pillars .pillar:nth-child(4) {
+  grid-column: 1 / 2;
+  margin-left: calc(50% + 5px);
+}
+
+/* Center the bottom 2 pills using subgrid trick */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 40px;
+  max-width: 600px; width: 100%;
+}
+
+.pillars .pillar:nth-child(1) { grid-column: 1 / 3; }
+.pillars .pillar:nth-child(2) { grid-column: 3 / 5; }
+.pillars .pillar:nth-child(3) { grid-column: 5 / 7; }
+.pillars .pillar:nth-child(4) { grid-column: 2 / 4; }
+.pillars .pillar:nth-child(5) { grid-column: 4 / 6; }
   border: 1px solid var(--gray-200);
   border-radius: var(--radius);
   padding: 14px 16px;
@@ -254,7 +286,7 @@ body {
 }
 
 .track-desc {
-  font-size: 0.85rem; font-weight: 300;
+  font-size: 1rem; font-weight: 300;
   color: var(--gray-600); line-height: 1.65;
   margin-bottom: 16px;
 }
@@ -321,10 +353,13 @@ body {
   transition: all 0.15s;
   text-align: left;
   font-family: var(--font-body);
-  font-size: 0.9rem; line-height: 1.5;
+  font-size: 1rem; line-height: 1.5;
   font-weight: 300;
   color: var(--ink); width: 100%;
 }
+
+.pillar {
+  background: var(--gray-50);
 
 .opt:hover { border-color: var(--yellow); background: var(--yellow-pale); }
 .opt.selected { border-color: var(--black); background: var(--yellow-pale); }
@@ -362,7 +397,7 @@ body {
   text-decoration: none; display: inline-block;
 }
 
-.btn-start { width: 100%; text-align: center; padding: 16px; }
+.btn-start { width: 100%; max-width: 600px; text-align: center; padding: 16px; }
 .btn-start:hover, .btn-nav-primary:hover, .btn-unlock:hover, .btn-cta:hover { background: var(--gray-600); }
 .btn-nav-primary:disabled { background: var(--gray-200); color: var(--gray-400); cursor: not-allowed; }
 
@@ -413,7 +448,7 @@ body {
 .gate-title em { font-style: italic; color: var(--yellow); }
 
 .gate-sub {
-  font-size: 0.9rem; font-weight: 300;
+  font-size: 1rem; font-weight: 300;
   color: rgba(255,255,255,0.55);
   margin-bottom: 28px; line-height: 1.7;
 }
@@ -435,8 +470,8 @@ body {
 
 .score-big sub { font-size: 1.2rem; color: var(--gray-400); }
 
-.score-words { font-size: 0.82rem; line-height: 1.65; color: rgba(255,255,255,0.55); font-weight: 300; }
-.score-words strong { display: block; font-size: 0.95rem; color: var(--white); margin-bottom: 4px; font-weight: 500; }
+.score-words { font-size: 0.95rem; line-height: 1.65; color: rgba(255,255,255,0.55); font-weight: 300; }
+.score-words strong { display: block; font-size: 1.05rem; color: var(--white); margin-bottom: 4px; font-weight: 500; }
 
 .email-row { display: flex; gap: 10px; margin-bottom: 12px; }
 
@@ -567,7 +602,7 @@ body {
 
 .ai-report {
   font-family: var(--font-display);
-  font-size: 1.05rem; line-height: 1.8;
+  font-size: 1.15rem; line-height: 1.8;
   color: var(--ink); margin-bottom: 40px;
 }
 
@@ -647,7 +682,7 @@ body {
 
 .cta-feat {
   display: flex; align-items: center; gap: 10px;
-  font-size: 0.82rem; font-weight: 300;
+  font-size: 1rem; font-weight: 300;
   color: rgba(255,255,255,0.55);
 }
 
@@ -677,7 +712,15 @@ body {
 
 @media (max-width: 600px) {
   .intro-hero { padding: 56px 24px 48px; }
-  .intro-body { padding: 40px 24px; }
+  .intro-body { padding: 40px 24px; align-items: stretch; }
+  .intro-body h2, .intro-body > p, .pillars, .btn-start { max-width: 100%; }
+  .pillars { grid-template-columns: repeat(2, 1fr); }
+  .pillars .pillar:nth-child(1),
+  .pillars .pillar:nth-child(2),
+  .pillars .pillar:nth-child(3),
+  .pillars .pillar:nth-child(4),
+  .pillars .pillar:nth-child(5) { grid-column: span 1; margin-left: 0; }
+  .pillars .pillar:nth-child(5) { grid-column: 1 / 3; }
   .track-hero { padding: 48px 24px 40px; }
   .quiz-nav-top { padding: 0 24px; }
   .email-row { flex-direction: column; }
@@ -830,7 +873,7 @@ body {
       <div class="cta-title">Get <em>Unstuck.</em></div>
       <div class="ai-cta-copy streaming-text" id="ai-cta-text"><em>Personalizing your recommendation…</em></div>
       <div class="cta-features">
-        <div class="cta-feat"><div class="feat-dot"></div>AI frameworks that protect your bandwidth</div>
+        <div class="cta-feat"><div class="feat-dot"></div>Frameworks that protect your bandwidth</div>
         <div class="cta-feat"><div class="feat-dot"></div>Systems built for how your work actually runs</div>
         <div class="cta-feat"><div class="feat-dot"></div>No fluff — only what moves the needle</div>
       </div>
