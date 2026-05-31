@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Eloquence Index — The AI Eloquent</title>
+<meta name="description" content="Free AI fluency diagnostic. Find out where you stand — and what to do next.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230D0D0B'/><text x='2' y='24' font-family='Georgia,serif' font-size='18' font-style='italic'><tspan fill='%23F5C800'>a</tspan><tspan fill='%23FFFFFF'>i</tspan><tspan fill='%23F5C800'>e</tspan></text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --yellow: #F5C800;
+  --yellow-pale: #FFFBE6;
+  --black: #0D0D0B;
+  --white: #FFFFFF;
+  --ink: #1A1A17;
+  --gray-50: #F9F9F7;
+  --gray-100: #F0F0EB;
+  --gray-200: #E0E0D8;
+  --gray-400: #8A8A82;
+  --gray-600: #4A4A44;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --radius: 3px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.page { display: none; }
+.page.active { display: block; animation: rise 0.4s ease; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── NAV ── */
+.quiz-nav-top {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 64px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.quiz-logo {
+  font-family: var(--font-display);
+  font-size: 1.15rem; font-weight: 600;
+  color: var(--ink); text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.quiz-logo em { font-style: italic; color: var(--gray-400); }
+
+.q-counter {
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gray-400);
+}
+
+/* ── PROGRESS ── */
+.quiz-progress {
+  height: 2px;
+  background: var(--gray-100);
+}
+
+.quiz-progress-fill {
+  height: 100%;
+  background: var(--yellow);
+  transition: width 0.4s ease;
+}
+
+/* ── INTRO ── */
+#page-intro {
+  display: none;
+  min-height: 100vh;
+  flex-direction: column;
+}
+#page-intro.active { display: flex; }
+
+.intro-hero {
+  background: var(--black);
+  color: var(--white);
+  padding: 80px 48px 72px;
+}
+
+.intro-hero-inner { max-width: 600px; }
+
+.hero-eyebrow {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--black);
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: var(--radius);
+  margin-bottom: 32px;
+}
+
+.intro-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+
+.intro-hero h1 em { font-style: italic; color: var(--yellow); }
+
+.intro-hero p {
+  font-size: 1rem; font-weight: 300;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.75;
+  margin-bottom: 48px;
+  max-width: 480px;
+}
+
+.intro-stats {
+  display: flex; gap: 40px; flex-wrap: wrap;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 2rem; font-weight: 700;
+  color: var(--yellow);
+  display: block; line-height: 1; margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+.intro-body {
+  padding: 56px 48px;
+  flex: 1;
+  max-width: 640px;
+}
+
+.intro-body h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem; font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.intro-body > p {
+  font-size: 0.9rem; font-weight: 300;
+  color: var(--gray-400); line-height: 1.75;
+  margin-bottom: 36px;
+}
+
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.pillar {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.pillar-icon { font-size: 18px; margin-bottom: 6px; display: block; }
+
+.pillar-name {
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--gray-600);
+}
+
+/* ── TRACK SELECTION ── */
+#page-track {
+  display: none;
+  min-height: 100vh;
+  flex-direction: column;
+}
+#page-track.active { display: flex; }
+
+.track-hero {
+  background: var(--black);
+  color: var(--white);
+  padding: 64px 48px 56px;
+  text-align: center;
+}
+
+.track-hero h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 600; line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.track-hero h2 em { font-style: italic; color: var(--yellow); }
+
+.track-hero p {
+  font-size: 0.9rem; font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  max-width: 380px; margin: 0 auto;
+  line-height: 1.7;
+}
+
+.track-cards {
+  display: flex; flex-direction: column; gap: 0;
+  flex: 1; max-width: 560px; margin: 0 auto;
+  padding: 40px 24px; width: 100%;
+}
+
+.track-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  cursor: pointer;
+  transition: all 0.18s;
+  margin-bottom: 12px;
+}
+
+.track-card:hover {
+  border-color: var(--yellow);
+  background: var(--yellow-pale);
+}
+
+.track-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+
+.track-name {
+  font-family: var(--font-display);
+  font-size: 1.4rem; font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.track-tagline {
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 10px;
+}
+
+.track-desc {
+  font-size: 0.85rem; font-weight: 300;
+  color: var(--gray-600); line-height: 1.65;
+  margin-bottom: 16px;
+}
+
+.track-meta { display: flex; gap: 20px; }
+
+.track-meta-item {
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gray-400);
+}
+
+.track-meta-item strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--ink); margin-bottom: 1px;
+}
+
+/* ── QUIZ ── */
+#page-quiz {
+  display: none;
+  min-height: 100vh;
+  flex-direction: column;
+}
+#page-quiz.active { display: flex; }
+
+.quiz-body {
+  flex: 1;
+  padding: 48px 24px;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.q-cat-badge {
+  display: inline-block;
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  background: var(--yellow);
+  color: var(--black);
+  padding: 3px 10px;
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+}
+
+.q-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  font-weight: 600; line-height: 1.3;
+  margin-bottom: 32px;
+  letter-spacing: -0.01em;
+}
+
+.options { display: grid; gap: 10px; }
+
+.opt {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 18px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 0.9rem; line-height: 1.5;
+  font-weight: 300;
+  color: var(--ink); width: 100%;
+}
+
+.opt:hover { border-color: var(--yellow); background: var(--yellow-pale); }
+.opt.selected { border-color: var(--black); background: var(--yellow-pale); }
+
+.opt-letter {
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1rem;
+  color: var(--gray-400);
+  min-width: 16px; padding-top: 1px;
+  transition: color 0.15s;
+}
+
+.opt.selected .opt-letter { color: var(--black); }
+
+.quiz-nav-bottom {
+  padding: 20px 24px;
+  display: flex; justify-content: space-between;
+  border-top: 1px solid var(--gray-200);
+  background: var(--white);
+  position: sticky; bottom: 0;
+  max-width: 100%;
+}
+
+/* ── BUTTONS ── */
+.btn-start, .btn-nav-primary, .btn-unlock, .btn-cta {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 500; font-size: 0.8rem;
+  padding: 13px 28px;
+  border-radius: var(--radius);
+  border: none; cursor: pointer;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  transition: background 0.15s;
+  text-decoration: none; display: inline-block;
+}
+
+.btn-start { width: 100%; text-align: center; padding: 16px; }
+.btn-start:hover, .btn-nav-primary:hover, .btn-unlock:hover, .btn-cta:hover { background: var(--gray-600); }
+.btn-nav-primary:disabled { background: var(--gray-200); color: var(--gray-400); cursor: not-allowed; }
+
+.btn-nav-ghost {
+  background: transparent;
+  color: var(--gray-400);
+  font-family: var(--font-body);
+  font-weight: 500; font-size: 0.8rem;
+  padding: 13px 28px;
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+  cursor: pointer; letter-spacing: 0.06em;
+  text-transform: uppercase; transition: all 0.15s;
+}
+
+.btn-nav-ghost:hover { color: var(--ink); border-color: var(--gray-400); }
+.btn-nav-ghost:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* ── EMAIL GATE ── */
+#page-gate {
+  display: none;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: var(--black);
+  color: var(--white);
+}
+#page-gate.active { display: flex; }
+
+.gate-wrap { max-width: 480px; width: 100%; }
+
+.gate-eyebrow {
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--yellow); margin-bottom: 20px;
+  display: block;
+}
+
+.gate-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 7vw, 3.8rem);
+  font-weight: 600; line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.gate-title em { font-style: italic; color: var(--yellow); }
+
+.gate-sub {
+  font-size: 0.9rem; font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 28px; line-height: 1.7;
+}
+
+.score-tease {
+  display: flex; align-items: center; gap: 20px;
+  padding: 20px 24px;
+  background: rgba(245,200,0,0.08);
+  border: 1px solid rgba(245,200,0,0.25);
+  border-radius: var(--radius);
+  margin-bottom: 28px;
+}
+
+.score-big {
+  font-family: var(--font-display);
+  font-size: 3rem; font-weight: 700;
+  color: var(--yellow); line-height: 1;
+}
+
+.score-big sub { font-size: 1.2rem; color: var(--gray-400); }
+
+.score-words { font-size: 0.82rem; line-height: 1.65; color: rgba(255,255,255,0.55); font-weight: 300; }
+.score-words strong { display: block; font-size: 0.95rem; color: var(--white); margin-bottom: 4px; font-weight: 500; }
+
+.email-row { display: flex; gap: 10px; margin-bottom: 12px; }
+
+.email-input {
+  flex: 1;
+  padding: 13px 16px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.9rem; outline: none;
+  transition: border-color 0.18s;
+}
+
+.email-input:focus { border-color: var(--yellow); }
+.email-input::placeholder { color: rgba(255,255,255,0.3); }
+
+.gate-fine { font-size: 0.75rem; color: rgba(255,255,255,0.25); line-height: 1.6; font-weight: 300; }
+
+/* ── GENERATING ── */
+#page-generating {
+  display: none;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 40px 24px;
+  background: var(--black); color: var(--white);
+  text-align: center;
+}
+#page-generating.active { display: flex; }
+
+.gen-icon { font-size: 40px; margin-bottom: 24px; animation: pulse 2s infinite; }
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.6; }
+}
+
+.gen-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem; font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.gen-sub { font-size: 0.85rem; font-weight: 300; color: rgba(255,255,255,0.45); margin-bottom: 40px; }
+
+.gen-steps { max-width: 300px; text-align: left; }
+
+.gen-step {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.82rem; font-weight: 300;
+  color: rgba(255,255,255,0.3);
+  transition: color 0.4s;
+}
+
+.gen-step.done { color: var(--yellow); }
+.gen-step.active-step { color: var(--white); }
+
+.step-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  flex-shrink: 0; transition: background 0.4s;
+}
+
+.gen-step.done .step-dot { background: var(--yellow); }
+.gen-step.active-step .step-dot { background: var(--white); animation: blink 1s infinite; }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+/* ── RESULTS ── */
+#page-results { display: none; }
+#page-results.active { display: block; }
+
+.results-hero {
+  background: var(--black); color: var(--white);
+  padding: 64px 24px 56px;
+  text-align: center; position: relative; overflow: hidden;
+}
+
+.badge-ring {
+  width: 80px; height: 80px; border-radius: 50%;
+  border: 2px solid var(--yellow);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; margin: 0 auto 16px;
+  background: rgba(245,200,0,0.08);
+  position: relative; z-index: 1;
+}
+
+.badge-label {
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--yellow); margin-bottom: 6px;
+  position: relative; z-index: 1;
+}
+
+.badge-level {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 7vw, 4rem);
+  font-weight: 700;
+  position: relative; z-index: 1; margin-bottom: 10px;
+}
+
+.badge-score {
+  font-size: 0.78rem; font-weight: 300;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.08em;
+  position: relative; z-index: 1;
+}
+
+.results-body {
+  padding: 40px 24px;
+  max-width: 640px; margin: 0 auto;
+}
+
+.section-label {
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gray-400); margin-bottom: 14px;
+  display: block;
+}
+
+.ai-report {
+  font-family: var(--font-display);
+  font-size: 1.05rem; line-height: 1.8;
+  color: var(--ink); margin-bottom: 40px;
+}
+
+.ai-report h3 {
+  font-size: 1.2rem; font-weight: 600;
+  margin: 24px 0 8px; color: var(--ink);
+}
+
+.ai-report p { margin-bottom: 12px; font-weight: 400; }
+
+.ai-report ul { padding-left: 20px; margin-bottom: 12px; }
+.ai-report ul li { margin-bottom: 6px; font-weight: 300; }
+.ai-report strong { font-weight: 600; }
+
+.breakdown { margin-bottom: 40px; }
+
+.brow { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+
+.brow-label {
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gray-400); width: 110px; flex-shrink: 0;
+}
+
+.brow-bar-wrap {
+  flex: 1; height: 4px;
+  background: var(--gray-100); border-radius: 2px; overflow: hidden;
+}
+
+.brow-bar {
+  height: 100%; background: var(--yellow);
+  border-radius: 2px; width: 0%;
+  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+.brow-val {
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 0.95rem;
+  color: var(--ink); width: 36px; text-align: right;
+}
+
+/* ── UNSTUCK CTA ── */
+.unstuck-cta {
+  background: var(--black);
+  border-radius: var(--radius);
+  padding: 36px 28px;
+  margin-bottom: 32px;
+}
+
+.cta-chip {
+  display: inline-block;
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--yellow);
+  background: rgba(245,200,0,0.1);
+  border: 1px solid rgba(245,200,0,0.25);
+  padding: 4px 12px; border-radius: var(--radius);
+  margin-bottom: 16px;
+}
+
+.cta-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem; font-weight: 600;
+  color: var(--white); margin-bottom: 12px; line-height: 1.1;
+}
+
+.cta-title em { font-style: italic; color: var(--yellow); }
+
+.ai-cta-copy {
+  font-size: 0.88rem; font-weight: 300;
+  line-height: 1.7; color: rgba(255,255,255,0.65);
+  margin-bottom: 20px; font-style: italic;
+  font-family: var(--font-display);
+}
+
+.cta-features { display: grid; gap: 8px; margin-bottom: 24px; }
+
+.cta-feat {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.82rem; font-weight: 300;
+  color: rgba(255,255,255,0.55);
+}
+
+.feat-dot {
+  width: 5px; height: 5px;
+  background: var(--yellow); border-radius: 50%; flex-shrink: 0;
+}
+
+.btn-cta { display: block; width: 100%; text-align: center; }
+
+.results-footer {
+  text-align: center;
+  padding: 28px 24px 48px;
+  border-top: 1px solid var(--gray-200);
+}
+
+.results-footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.1rem; font-weight: 600;
+  color: var(--ink); margin-bottom: 6px;
+}
+
+.results-footer-brand a { color: var(--gray-400); text-decoration: none; }
+.results-footer p { font-size: 0.75rem; color: var(--gray-400); font-weight: 300; }
+
+.streaming-text { min-height: 40px; }
+
+@media (max-width: 600px) {
+  .intro-hero { padding: 56px 24px 48px; }
+  .intro-body { padding: 40px 24px; }
+  .track-hero { padding: 48px 24px 40px; }
+  .quiz-nav-top { padding: 0 24px; }
+  .email-row { flex-direction: column; }
+  .btn-unlock { width: 100%; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ PAGE 1: INTRO ══ -->
+<div id="page-intro" class="page active">
+  <nav class="quiz-nav-top">
+    <a href="index.html" class="quiz-logo">The AI <em>Eloquent</em></a>
+  </nav>
+  <div class="intro-hero">
+    <div class="intro-hero-inner">
+      <span class="hero-eyebrow">Free Diagnostic</span>
+      <h1>AI <em>Eloquence</em><br>Index</h1>
+      <p>Everyone is talking about AI. Few know where they actually stand. Find out in 6 minutes and get a personalized report written just for you.</p>
+      <div class="intro-stats">
+        <div><span class="stat-num">12</span><span class="stat-label">Questions</span></div>
+        <div><span class="stat-num">5</span><span class="stat-label">Categories</span></div>
+        <div><span class="stat-num">AI</span><span class="stat-label">Report</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="intro-body">
+    <h2>How it works</h2>
+    <p>Answer 12 questions. Claude analyzes your responses and generates a report unique to your score — your gaps, your strengths, and your exact next steps. No generic advice. No fluff.</p>
+    <div class="pillars">
+      <div class="pillar"><div class="pillar-icon">🧠</div><div class="pillar-name">AI Awareness</div></div>
+      <div class="pillar"><div class="pillar-icon">✍️</div><div class="pillar-name">Prompt Fluency</div></div>
+      <div class="pillar"><div class="pillar-icon">⚙️</div><div class="pillar-name">Workflow</div></div>
+      <div class="pillar"><div class="pillar-icon">⏱️</div><div class="pillar-name">Bandwidth</div></div>
+      <div class="pillar"><div class="pillar-icon">⚖️</div><div class="pillar-name">Ethics</div></div>
+    </div>
+    <button class="btn-start" onclick="goTo('track')">Find Out Where I Stand →</button>
+  </div>
+</div>
+
+<!-- ══ PAGE 1B: TRACK SELECTION ══ -->
+<div id="page-track" class="page">
+  <nav class="quiz-nav-top">
+    <a href="index.html" class="quiz-logo">The AI <em>Eloquent</em></a>
+  </nav>
+  <div class="track-hero">
+    <span class="hero-eyebrow">Choose Your Track</span>
+    <h2>Who are you taking this <em>for?</em></h2>
+    <p>Same rigor. Different lens. Pick the track that fits you and we will tailor every question and your report accordingly.</p>
+  </div>
+  <div class="track-cards">
+    <div class="track-card" onclick="selectTrack('individual')">
+      <span class="track-icon">🙋</span>
+      <div class="track-name">For Myself</div>
+      <div class="track-tagline">Individual Track</div>
+      <p class="track-desc">You are curious where you personally stand with AI — whether you are a student, a professional, or just someone who wants to keep up.</p>
+      <div class="track-meta">
+        <div class="track-meta-item"><strong>12</strong>Questions</div>
+        <div class="track-meta-item"><strong>~5</strong>Minutes</div>
+        <div class="track-meta-item"><strong>Free</strong>Report</div>
+      </div>
+    </div>
+    <div class="track-card" onclick="selectTrack('corporate')">
+      <span class="track-icon">🏢</span>
+      <div class="track-name">For My Organization</div>
+      <div class="track-tagline">Corporate Track</div>
+      <p class="track-desc">You are assessing how AI-ready your team, department, or company is — and what it is costing you to stay where you are.</p>
+      <div class="track-meta">
+        <div class="track-meta-item"><strong>12</strong>Questions</div>
+        <div class="track-meta-item"><strong>~6</strong>Minutes</div>
+        <div class="track-meta-item"><strong>Free</strong>Report</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE 2: QUIZ ══ -->
+<div id="page-quiz" class="page">
+  <nav class="quiz-nav-top">
+    <a href="index.html" class="quiz-logo">The AI <em>Eloquent</em></a>
+    <div class="q-counter" id="q-counter">1 / 12</div>
+  </nav>
+  <div class="quiz-progress">
+    <div class="quiz-progress-fill" id="q-progress" style="width:8%"></div>
+  </div>
+  <div class="quiz-body" id="quiz-body"></div>
+  <div class="quiz-nav-bottom">
+    <button class="btn-nav-ghost" id="btn-back" onclick="prevQ()" disabled>← Back</button>
+    <button class="btn-nav-primary" id="btn-next" onclick="nextQ()" disabled>Next →</button>
+  </div>
+</div>
+
+<!-- ══ PAGE 3: EMAIL GATE ══ -->
+<div id="page-gate" class="page">
+  <div class="gate-wrap">
+    <span class="gate-eyebrow">✦ Assessment Complete</span>
+    <h2 class="gate-title">Your <em>results</em><br>are ready.</h2>
+    <p class="gate-sub">Your AI Eloquence report has been scored and is being personalized right now. Enter your work email to unlock it.</p>
+    <div class="score-tease">
+      <div class="score-big" id="gate-num">—<sub>/48</sub></div>
+      <div class="score-words">
+        <strong id="gate-level-preview">Calculating...</strong>
+        Your full report includes a category breakdown, what your score means for your work, and a personalized next-step plan.
+      </div>
+    </div>
+    <div class="email-row">
+      <input type="email" class="email-input" id="email-field" placeholder="your@company.com" />
+      <button class="btn-unlock" id="btn-unlock" onclick="submitEmail()">Unlock →</button>
+    </div>
+    <p class="gate-fine">No spam — ever. You will receive your report and one follow-up. That is it.</p>
+  </div>
+</div>
+
+<!-- ══ PAGE 4: GENERATING ══ -->
+<div id="page-generating" class="page">
+  <div class="gen-icon">✦</div>
+  <div class="gen-title">Generating your report</div>
+  <div class="gen-sub">Analyzing your responses with AI…</div>
+  <div class="gen-steps">
+    <div class="gen-step active-step" id="step-1"><div class="step-dot"></div>Scoring 5 categories</div>
+    <div class="gen-step" id="step-2"><div class="step-dot"></div>Identifying your key gaps</div>
+    <div class="gen-step" id="step-3"><div class="step-dot"></div>Writing your personalized analysis</div>
+    <div class="gen-step" id="step-4"><div class="step-dot"></div>Preparing your action plan</div>
+  </div>
+</div>
+
+<!-- ══ PAGE 5: RESULTS ══ -->
+<div id="page-results" class="page">
+  <nav class="quiz-nav-top">
+    <a href="index.html" class="quiz-logo">The AI <em>Eloquent</em></a>
+  </nav>
+  <div class="results-hero">
+    <div class="badge-ring" id="res-icon">🌱</div>
+    <div class="badge-label">Your AI Eloquence Level</div>
+    <div class="badge-level" id="res-level">NOVICE</div>
+    <div class="badge-score" id="res-score">Score: — / 48</div>
+  </div>
+
+  <div class="results-body">
+    <span class="section-label">Your Personalized Report</span>
+    <div class="streaming-text" id="ai-report-text">
+      <p><em>Generating your analysis…</em></p>
+    </div>
+
+    <span class="section-label">Score Breakdown</span>
+    <div class="breakdown" id="breakdown"></div>
+
+    <div class="unstuck-cta">
+      <div class="cta-chip">✦ Recommended for your level</div>
+      <div class="cta-title">Get <em>Unstuck.</em></div>
+      <div class="ai-cta-copy streaming-text" id="ai-cta-text"><em>Personalizing your recommendation…</em></div>
+      <div class="cta-features">
+        <div class="cta-feat"><div class="feat-dot"></div>AI frameworks that protect your bandwidth</div>
+        <div class="cta-feat"><div class="feat-dot"></div>Systems built for how your work actually runs</div>
+        <div class="cta-feat"><div class="feat-dot"></div>No fluff — only what moves the needle</div>
+      </div>
+      <a href="https://www.amazon.com/dp/B0GYHN6D1D" class="btn-cta" target="_blank" rel="noopener">Get Unstuck on Amazon →</a>
+    </div>
+  </div>
+
+  <div class="results-footer">
+    <div class="results-footer-brand">AI Eloquence Index · <a href="index.html">The AI Eloquent</a></div>
+    <p>© 2026 · theaieloquent.com · Philippines</p>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════
+// QUIZ DATA — CORPORATE
+// ═══════════════════════════════════
+const questions = [
+  {
+    cat: 'AI Awareness',
+    text: 'When your team hears "AI," what\'s the most common response?',
+    opts: [
+      '"We already use ChatGPT sometimes."',
+      '"We\'re exploring which tools to adopt."',
+      '"We have an AI strategy and a roadmap."',
+      '"AI is embedded in our core workflows and we measure its ROI."'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Prompt Fluency',
+    text: 'How does your team typically prompt an AI tool?',
+    opts: [
+      'Short, vague requests — "write me a report on X."',
+      'Basic requests with some added context.',
+      'Structured prompts with role, context, format, and constraints.',
+      'Documented prompt libraries and templates used across departments.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Workflow Integration',
+    text: 'Where does AI currently live in your organization?',
+    opts: [
+      'Individuals use it on their own time, unofficially.',
+      'A few departments have adopted specific tools.',
+      'AI is part of approved workflows in most teams.',
+      'AI is systematically integrated — with governance, training, and metrics.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'AI Awareness',
+    text: 'How would you describe your leadership team\'s AI fluency?',
+    opts: [
+      'Limited — they know AI exists but leave it to IT.',
+      'Growing — some leaders are experimenting personally.',
+      'Solid — leadership can ask smart questions and evaluate AI outputs.',
+      'Advanced — leadership actively drives AI strategy.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Bandwidth & ROI',
+    text: 'How does your team handle high-volume, repetitive tasks like drafting, summarizing, or reporting?',
+    opts: [
+      'Manually. Employees do most of it by hand.',
+      'Some automation, but AI isn\'t consistently used.',
+      'AI handles many of these tasks with human review.',
+      'These tasks are nearly fully automated, freeing employees for higher-value work.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Ethics & Risk',
+    text: 'A team member uses AI to generate a client-facing report. What\'s your company\'s protocol?',
+    opts: [
+      'We have a review process — AI output must be verified before client delivery.',
+      'No protocol exists — it\'s up to the individual.',
+      'We have guidelines but they\'re not consistently followed.',
+      'We don\'t currently allow AI in client-facing work.'
+    ],
+    scores: [4,1,3,2]
+  },
+  {
+    cat: 'Prompt Fluency',
+    text: 'What best describes how your team evaluates AI output quality?',
+    opts: [
+      '"If it sounds good, we use it."',
+      'We fact-check key claims and review for accuracy.',
+      'We have defined criteria — accuracy, tone, completeness, compliance.',
+      'We rarely use AI output directly; we treat it only as a draft.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Workflow Integration',
+    text: 'How does your company currently train employees on AI tools?',
+    opts: [
+      'Informally — "figure it out yourself."',
+      'No training yet.',
+      'Occasional workshops or shared resources.',
+      'Structured, role-specific AI training is part of onboarding and ongoing L&D.'
+    ],
+    scores: [2,1,3,4]
+  },
+  {
+    cat: 'Bandwidth & ROI',
+    text: 'Does your organization measure time or cost savings from AI use?',
+    opts: [
+      'No — we haven\'t thought about measuring it.',
+      'Informally — people feel it\'s helping but we can\'t quantify it.',
+      'We track productivity in some areas affected by AI.',
+      'Yes — we have dashboards and KPIs tied to AI adoption.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Ethics & Risk',
+    text: 'How does your company handle data privacy when using AI tools?',
+    opts: [
+      'We haven\'t formally addressed it yet.',
+      'We\'re aware of risks but don\'t have a clear policy.',
+      'We have basic guidelines about what data can and can\'t be shared with AI.',
+      'We have a formal AI data governance policy reviewed by legal.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Bandwidth & ROI',
+    text: 'If AI could handle 40% of your team\'s current workload, what\'s your organization\'s biggest concern?',
+    opts: [
+      'Job security and employee resistance.',
+      'Quality and accuracy of AI output.',
+      'How to redeploy that freed bandwidth toward strategic priorities.',
+      'Cost and complexity of implementation.'
+    ],
+    scores: [1,2,4,3]
+  },
+  {
+    cat: 'AI Awareness',
+    text: 'In 12 months, where do you want your organization to be on AI adoption?',
+    opts: [
+      'Comfortable with basic tools across the team.',
+      'AI integrated into at least 3 core workflows.',
+      'AI visibly reducing costs and protecting employee bandwidth.',
+      'Industry-recognized as an AI-forward organization with measurable competitive edge.'
+    ],
+    scores: [1,2,3,4]
+  }
+];
+
+// ═══════════════════════════════════
+// INDIVIDUAL TRACK QUESTIONS
+// ═══════════════════════════════════
+const questionsIndividual = [
+  {
+    cat: 'AI Awareness',
+    text: 'How would you describe your current relationship with AI tools?',
+    opts: [
+      'I\'ve heard of them but haven\'t really used them.',
+      'I use ChatGPT or similar tools occasionally.',
+      'I use AI tools regularly and intentionally.',
+      'AI is part of how I work every day — I couldn\'t imagine not using it.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Prompt Fluency',
+    text: 'When you ask an AI something, how do you typically phrase your request?',
+    opts: [
+      'Short and simple — I type what I\'m thinking.',
+      'I add some context but keep it casual.',
+      'I structure my prompts with context, format, and a clear goal.',
+      'I use frameworks — roles, examples, constraints — and iterate until I get what I need.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'AI Awareness',
+    text: 'How well do you understand the difference between AI tools like ChatGPT, Claude, Gemini, and Copilot?',
+    opts: [
+      'Not really — they all seem the same to me.',
+      'I know they\'re different but couldn\'t explain how.',
+      'I understand their general strengths and when to use each.',
+      'I choose tools deliberately based on the task — and can explain why.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Workflow Integration',
+    text: 'In a typical work or study week, how much of your output involves AI in some way?',
+    opts: [
+      'Almost none.',
+      'A small fraction — maybe one or two tasks.',
+      'A meaningful chunk — AI saves me real hours.',
+      'AI is woven into most of what I produce.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Prompt Fluency',
+    text: 'When an AI gives you a bad or generic answer, what do you do?',
+    opts: [
+      'Accept it or give up.',
+      'Try rephrasing the question.',
+      'Refine my prompt with more context or constraints.',
+      'Debug my prompt systematically until I get the output I actually need.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Ethics & Risk',
+    text: 'How do you think about privacy when using AI tools?',
+    opts: [
+      'I haven\'t thought about it much.',
+      'I try to be careful but don\'t have clear rules.',
+      'I avoid pasting sensitive personal or work info into AI tools.',
+      'I have clear personal guidelines about what I share — and why.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Workflow Integration',
+    text: 'Which of these have you used AI for? Pick the most advanced thing you\'ve done.',
+    opts: [
+      'Writing or summarizing text.',
+      'Research, brainstorming, or drafting complex documents.',
+      'Automating a repetitive task or building a workflow.',
+      'Creating something entirely new — a tool, a system, or a product — with AI\'s help.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'AI Awareness',
+    text: 'How do you stay current on AI developments?',
+    opts: [
+      'I don\'t, really — it moves too fast.',
+      'I see things on social media occasionally.',
+      'I follow a few reliable sources and read up when something catches my attention.',
+      'I actively learn — newsletters, communities, experiments — and apply what I learn.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Bandwidth & ROI',
+    text: 'How much time per week do you think AI could save you if you used it better?',
+    opts: [
+      'Not much — I don\'t think it applies to what I do.',
+      'Maybe 30 minutes to an hour.',
+      'Probably 2–4 hours.',
+      'More than 4 hours — and I\'m actively working toward that.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Ethics & Risk',
+    text: 'When you use AI-generated content, what\'s your habit?',
+    opts: [
+      'I use it as-is if it sounds right.',
+      'I read it through but rarely make big changes.',
+      'I always review, fact-check, and rewrite where needed.',
+      'I treat AI output as a first draft — I bring my own judgment to everything it produces.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Bandwidth & ROI',
+    text: 'What\'s your biggest barrier to using AI more?',
+    opts: [
+      'I don\'t know where to start.',
+      'I\'ve tried but the results aren\'t good enough.',
+      'Time — I haven\'t built the habit yet.',
+      'Honestly, not much — I\'m already using it well and looking to go deeper.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Workflow Integration',
+    text: 'Where do you want to be with AI in 6 months?',
+    opts: [
+      'Comfortable enough to use it without feeling lost.',
+      'Saving real time on things I currently do manually.',
+      'Using AI as a genuine thinking partner — not just a writing tool.',
+      'Building something with AI, or teaching others how to use it well.'
+    ],
+    scores: [1,2,3,4]
+  }
+];
+
+const LETTERS = ['A','B','C','D'];
+let currentTrack = 'corporate';
+let current = 0;
+let answers = new Array(12).fill(null);
+
+function selectTrack(track) {
+  currentTrack = track;
+  current = 0;
+  answers = new Array(12).fill(null);
+  goTo('quiz');
+}
+
+function activeQuestions() {
+  return currentTrack === 'individual' ? questionsIndividual : questions;
+}
+
+function goTo(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + pageId).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function renderQ(i) {
+  const qs = activeQuestions();
+  const q = qs[i];
+  const qBody = document.getElementById('quiz-body');
+  qBody.innerHTML = `
+    <div class="q-cat-badge">${q.cat}</div>
+    <div class="q-text">${q.text}</div>
+    <div class="options" id="opts-wrap">
+      ${q.opts.map((o, oi) => `
+        <button class="opt ${answers[i] === q.scores[oi] && answers[i] !== null ? 'selected' : ''}"
+          onclick="selectOpt(${i}, ${oi}, this)">
+          <span class="opt-letter">${LETTERS[oi]}</span>${o}
+        </button>
+      `).join('')}
+    </div>
+  `;
+  const trackLabel = currentTrack === 'individual' ? 'Individual' : 'Corporate';
+  document.getElementById('q-counter').textContent = `${trackLabel} · ${i+1} / 12`;
+  document.getElementById('q-progress').style.width = `${((i+1)/12)*100}%`;
+  document.getElementById('btn-back').disabled = i === 0;
+  document.getElementById('btn-next').disabled = answers[i] === null;
+  document.getElementById('btn-next').textContent = i === 11 ? 'See My Results →' : 'Next →';
+}
+
+function selectOpt(qi, oi, btn) {
+  answers[qi] = activeQuestions()[qi].scores[oi];
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('btn-next').disabled = false;
+}
+
+function nextQ() {
+  if (answers[current] === null) return;
+  if (current === 11) { showGate(); return; }
+  current++;
+  renderQ(current);
+}
+
+function prevQ() {
+  if (current === 0) return;
+  current--;
+  renderQ(current);
+}
+
+function calcCatScores() {
+  const qs = activeQuestions();
+  const cats = { 'AI Awareness': {score:0,max:0}, 'Prompt Fluency': {score:0,max:0}, 'Workflow Integration': {score:0,max:0}, 'Bandwidth & ROI': {score:0,max:0}, 'Ethics & Risk': {score:0,max:0} };
+  qs.forEach((q, i) => {
+    cats[q.cat].score += answers[i] || 0;
+    cats[q.cat].max += 4;
+  });
+  return cats;
+}
+
+function totalScore() { return answers.reduce((a,b) => a + (b||0), 0); }
+
+function getLevel(score) {
+  if (score <= 18) return { level: 'NOVICE', icon: '🌱' };
+  if (score <= 30) return { level: 'PRACTITIONER', icon: '⚙️' };
+  if (score <= 40) return { level: 'STRATEGIST', icon: '🎯' };
+  return { level: 'ARCHITECT', icon: '🏛️' };
+}
+
+function showGate() {
+  const score = totalScore();
+  const { level } = getLevel(score);
+  document.getElementById('gate-num').innerHTML = `${score}<sub>/48</sub>`;
+  document.getElementById('gate-level-preview').textContent = level;
+  goTo('gate');
+}
+
+function submitEmail() {
+  const email = document.getElementById('email-field').value;
+  if (!email || !email.includes('@')) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+  document.getElementById('btn-unlock').disabled = true;
+  document.getElementById('btn-unlock').textContent = 'Unlocking…';
+  goTo('generating');
+  runGeneratingSteps();
+}
+
+function runGeneratingSteps() {
+  const stepIds = ['step-1','step-2','step-3','step-4'];
+  let s = 0;
+  const advance = () => {
+    if (s > 0) {
+      document.getElementById(stepIds[s-1]).classList.remove('active-step');
+      document.getElementById(stepIds[s-1]).classList.add('done');
+    }
+    if (s < stepIds.length) {
+      document.getElementById(stepIds[s]).classList.add('active-step');
+      s++;
+      setTimeout(advance, s === 4 ? 1800 : 900);
+    } else {
+      generateReport();
+    }
+  };
+  advance();
+}
+
+async function generateReport() {
+  const score = totalScore();
+  const { level, icon } = getLevel(score);
+  const cats = calcCatScores();
+
+  const catSummary = Object.entries(cats).map(([cat, d]) => {
+    const pct = Math.round((d.score / d.max) * 100);
+    return `${cat}: ${d.score}/${d.max} (${pct}%)`;
+  }).join('\n');
+
+  const weakest = Object.entries(cats).sort((a,b) => (a[1].score/a[1].max) - (b[1].score/b[1].max))[0];
+  const strongest = Object.entries(cats).sort((a,b) => (b[1].score/b[1].max) - (a[1].score/a[1].max))[0];
+
+  const prompt = `You are the AI analyst behind the AI Eloquence Index, a corporate AI readiness assessment created in the Philippines, focused on helping workers and business owners preserve bandwidth and build AI skills. The companion book is Unstuck by Mai Mislang.
+
+A professional just completed the 12-question assessment. Here are their results:
+
+Overall Score: ${score}/48
+Level: ${level}
+Track: ${currentTrack}
+
+Category Scores:
+${catSummary}
+
+Weakest category: ${weakest[0]} (${weakest[1].score}/${weakest[1].max})
+Strongest category: ${strongest[0]} (${strongest[1].score}/${strongest[1].max})
+
+Write a personalized AI Eloquence Report. Tone: warm but direct — like a sharp advisor who respects the reader's intelligence. Not a cheerleader. Honest.
+
+Structure your report using these exact HTML tags:
+
+<h3>Where You Are</h3>
+<p>[2-3 sentences on what this score level means. Be specific. Don't be generic.]</p>
+
+<h3>Your Biggest Gap: ${weakest[0]}</h3>
+<p>[2-3 sentences on what this weakness costs them in real terms — hours, money, decisions.]</p>
+
+<h3>Your Hidden Strength: ${strongest[0]}</h3>
+<p>[1-2 sentences on what they're doing right and how to build from it.]</p>
+
+<h3>Your 3-Step Action Plan</h3>
+<ul>
+<li><strong>[Action 1]</strong> [Concrete next step related to their weakest area]</li>
+<li><strong>[Action 2]</strong> [One organizational or personal move to accelerate AI adoption]</li>
+<li><strong>[Action 3]</strong> [One way to measure progress in 30 days]</li>
+</ul>
+
+Keep the total report under 280 words. No fluff. Do not mention score numbers.`;
+
+  const ctaPrompt = `Write 2 short sentences (max 45 words total) connecting this person's AI Eloquence score (${level} level, weakest area: ${weakest[0]}) to why they should read Unstuck by Mai Mislang — a book about using AI to preserve bandwidth and work smarter. Be direct. Start with "Based on your score," or similar.`;
+
+  document.getElementById('res-icon').textContent = icon;
+  document.getElementById('res-level').textContent = level;
+  document.getElementById('res-score').textContent = `Score: ${score} / 48`;
+  renderBreakdown(cats);
+  goTo('results');
+
+  try {
+    const [reportRes, ctaRes] = await Promise.all([
+      fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      }),
+      fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{ role: 'user', content: ctaPrompt }]
+        })
+      })
+    ]);
+
+    const [reportData, ctaData] = await Promise.all([reportRes.json(), ctaRes.json()]);
+    const reportHTML = reportData.content?.[0]?.text || fallbackReport(level, weakest[0], strongest[0]);
+    const ctaText = ctaData.content?.[0]?.text || fallbackCTA(level, weakest[0]);
+
+    document.getElementById('ai-report-text').innerHTML = `<div class="ai-report">${reportHTML}</div>`;
+    document.getElementById('ai-cta-text').innerHTML = ctaText;
+
+  } catch(e) {
+    document.getElementById('ai-report-text').innerHTML = `<div class="ai-report">${fallbackReport(level, weakest[0], strongest[0])}</div>`;
+    document.getElementById('ai-cta-text').innerHTML = fallbackCTA(level, weakest[0]);
+  }
+}
+
+function fallbackReport(level, weak, strong) {
+  const reports = {
+    NOVICE: `<h3>Where You Are</h3><p>At the Novice level, you are operating with significant untapped AI potential. Every week without intentional AI use costs you hours you could redirect toward higher-value work — and that gap compounds over time.</p><h3>Your Biggest Gap: ${weak}</h3><p>This is where the friction is loudest. Without addressing ${weak}, you will continue absorbing tasks that AI could handle, draining the bandwidth that belongs on your actual priorities.</p><h3>Your Hidden Strength: ${strong}</h3><p>You have real momentum here. This is your launchpad — build from it as you close the gaps elsewhere.</p><h3>Your 3-Step Action Plan</h3><ul><li><strong>Audit one workflow</strong> Identify your most repetitive weekly task and map exactly where AI can step in.</li><li><strong>Start with one tool</strong> Pick Claude or ChatGPT and use it daily for one week on that task.</li><li><strong>Set a baseline</strong> Measure hours spent on manual tasks this week so you can track the ROI of change.</li></ul>`,
+    PRACTITIONER: `<h3>Where You Are</h3><p>You are experimenting with AI but using it in pockets. Without a more systematic approach, your AI efforts will plateau and the people around you with coordinated strategies will pull ahead.</p><h3>Your Biggest Gap: ${weak}</h3><p>${weak} is the lever that could unlock the rest of your AI potential. Ignoring it means your best AI habits are working against a bottleneck you have not yet named.</p><h3>Your Hidden Strength: ${strong}</h3><p>You have built real capability here. The challenge now is extending what works in one area across everything else you do.</p><h3>Your 3-Step Action Plan</h3><ul><li><strong>Document what works</strong> Turn your best AI workflow into a repeatable template you use every time.</li><li><strong>Address ${weak} directly</strong> Block one hour this week to prototype a fix for your weakest area.</li><li><strong>Set a 30-day adoption target</strong> Pick one new task or workflow to bring AI into by end of next month.</li></ul>`,
+    STRATEGIST: `<h3>Where You Are</h3><p>You are ahead of most — but the risk at this stage is complacency. You have built the foundation. What separates you from the next level is systematizing your wins and closing the remaining gaps before they become liabilities.</p><h3>Your Biggest Gap: ${weak}</h3><p>${weak} is the one area where your sophistication has not fully landed. Left unaddressed, it creates a weak link in an otherwise strong chain.</p><h3>Your Hidden Strength: ${strong}</h3><p>This is genuinely impressive. You have built real muscle here. Protect it and propagate it into the areas that still lag.</p><h3>Your 3-Step Action Plan</h3><ul><li><strong>Formalize your ${weak} approach</strong> Build a policy or habit that closes this gap systematically.</li><li><strong>Define your next level</strong> Identify concretely what Architect-level looks like for your work and reverse-engineer the path.</li><li><strong>Tie AI outcomes to goals</strong> Make your AI ROI visible in the language of results — time saved, output quality, decisions made faster.</li></ul>`,
+    ARCHITECT: `<h3>Where You Are</h3><p>You operate with a clarity on AI that most people are still searching for. The question now is not adoption — it is defensibility. How do you build AI habits and systems that others cannot easily replicate?</p><h3>Your Biggest Gap: ${weak}</h3><p>Even at this level, ${weak} represents a frontier worth pushing. Closing this final gap is the difference between being AI-forward and being AI-sovereign.</p><h3>Your Hidden Strength: ${strong}</h3><p>This is your competitive edge. Document it, protect it, and consider whether it is worth sharing with others as a credibility asset.</p><h3>Your 3-Step Action Plan</h3><ul><li><strong>Build proprietary workflows</strong> Move from using AI tools to owning AI systems that competitors cannot easily copy.</li><li><strong>Externalize your expertise</strong> Your AI maturity is a brand asset — teach it, publish it, or build it into something others can learn from.</li><li><strong>Institutionalize review</strong> Build an AI review cadence so your systems evolve faster than the tools do.</li></ul>`
+  };
+  return reports[level] || reports.NOVICE;
+}
+
+function fallbackCTA(level, weak) {
+  return `Based on your score, your ${weak} gap is costing you more than you have measured. Unstuck gives you the frameworks and AI systems to close it — without adding to your plate.`;
+}
+
+function renderBreakdown(cats) {
+  const wrap = document.getElementById('breakdown');
+  wrap.innerHTML = Object.entries(cats).map(([cat, d]) => `
+    <div class="brow">
+      <div class="brow-label">${cat}</div>
+      <div class="brow-bar-wrap"><div class="brow-bar" id="bbar-${cat.replace(/\s|&/g,'_')}"></div></div>
+      <div class="brow-val">${d.score}/${d.max}</div>
+    </div>
+  `).join('');
+
+  setTimeout(() => {
+    Object.entries(cats).forEach(([cat, d]) => {
+      const pct = Math.round((d.score / d.max) * 100);
+      const el = document.getElementById('bbar-' + cat.replace(/\s|&/g,'_'));
+      if (el) el.style.width = pct + '%';
+    });
+  }, 300);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  goTo('intro');
+  const quizBody = document.getElementById('quiz-body');
+  if (quizBody) renderQ(0);
+});
+
+const _goTo = goTo;
+window.goTo = function(id) {
+  _goTo(id);
+  if (id === 'quiz') renderQ(current);
+};
+</script>
+</body>
+</html>
