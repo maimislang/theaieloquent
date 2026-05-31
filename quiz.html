@@ -729,7 +729,7 @@ body {
       <div class="pillar"><div class="pillar-icon">⏱️</div><div class="pillar-name">Bandwidth</div></div>
       <div class="pillar"><div class="pillar-icon">⚖️</div><div class="pillar-name">Ethics</div></div>
     </div>
-    <button class="btn-start" onclick="goTo('track')">Find Out Where I Stand →</button>
+    <button class="btn-start" onclick="goTo('track')">Find Out Where You Stand →</button>
   </div>
 </div>
 
@@ -749,6 +749,17 @@ body {
       <div class="track-name">For Myself</div>
       <div class="track-tagline">Individual Track</div>
       <p class="track-desc">You are curious where you personally stand with AI — whether you are a student, a professional, or just someone who wants to keep up.</p>
+      <div class="track-meta">
+        <div class="track-meta-item"><strong>12</strong>Questions</div>
+        <div class="track-meta-item"><strong>~5</strong>Minutes</div>
+        <div class="track-meta-item"><strong>Free</strong>Report</div>
+      </div>
+    </div>
+    <div class="track-card" onclick="selectTrack('smallbiz')">
+      <span class="track-icon">🏪</span>
+      <div class="track-name">For My Small Business</div>
+      <div class="track-tagline">SME Track</div>
+      <p class="track-desc">You run a small or medium business and want to know how AI can cut your costs, free up your time, and help you compete without a big team.</p>
       <div class="track-meta">
         <div class="track-meta-item"><strong>12</strong>Questions</div>
         <div class="track-meta-item"><strong>~5</strong>Minutes</div>
@@ -1136,8 +1147,146 @@ const questionsIndividual = [
   }
 ];
 
+// ═══════════════════════════════════
+// SMALL BUSINESS TRACK QUESTIONS
+// ═══════════════════════════════════
+const questionsSmallBiz = [
+  {
+    cat: 'AI Awareness',
+    text: 'How would you describe your small business\'s current relationship with AI tools?',
+    opts: [
+      'We haven\'t really used AI in the business yet.',
+      'I\'ve tried a few tools personally but it hasn\'t reached the business.',
+      'We use AI for some tasks — mostly writing or quick research.',
+      'AI is part of how we run day-to-day operations.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Prompt Fluency',
+    text: 'When you use AI for your business, how do you typically ask it for help?',
+    opts: [
+      'Short, vague requests — I type what I need and hope for the best.',
+      'I describe the task with some context about my business.',
+      'I give AI a clear role, context, format, and what I want it to avoid.',
+      'I have saved prompts and templates I reuse for recurring business tasks.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'AI Awareness',
+    text: 'Which of these AI use cases sounds most valuable for your business right now?',
+    opts: [
+      'Writing captions, emails, or product descriptions.',
+      'Answering customer inquiries automatically.',
+      'Automating repetitive admin tasks like invoicing or scheduling.',
+      'Building a system where AI handles an entire business function end-to-end.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Workflow Integration',
+    text: 'Which part of your business currently uses AI in some form?',
+    opts: [
+      'None — we do everything manually.',
+      'One area, like marketing or customer replies.',
+      'Two or three areas — marketing, operations, or finance.',
+      'Most of our core workflows have some AI component.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Bandwidth & ROI',
+    text: 'How many hours per week does your business lose to tasks AI could handle — like drafting, data entry, or follow-ups?',
+    opts: [
+      'I\'m not sure — I\'ve never measured it.',
+      'Probably 2–5 hours.',
+      'More like 6–10 hours — it\'s a real drain.',
+      'More than 10 hours. It\'s one of our biggest bottlenecks.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Ethics & Risk',
+    text: 'How do you handle sensitive business or customer data when using AI tools?',
+    opts: [
+      'I paste whatever I need — I haven\'t thought about the risk.',
+      'I try to be careful but I don\'t have a clear rule.',
+      'I avoid putting customer names, financials, or private data into AI tools.',
+      'I have a clear policy on what data goes into AI and what stays internal.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Workflow Integration',
+    text: 'What\'s the most advanced thing you\'ve done with AI in your business?',
+    opts: [
+      'Used it to write a social media post or email.',
+      'Used it to draft proposals, summarize documents, or research competitors.',
+      'Automated a recurring task — like a weekly report or a customer reply flow.',
+      'Built a process or tool where AI handles a business function without my constant involvement.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'AI Awareness',
+    text: 'How do you find out about AI tools that could help your business?',
+    opts: [
+      'I don\'t actively look — I wait until something comes up.',
+      'I see things on social media and try them occasionally.',
+      'I follow a few sources and test tools that seem relevant to my industry.',
+      'I actively experiment, track what works, and build on it.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Bandwidth & ROI',
+    text: 'If AI freed up 10 hours a week in your business, what would you do with that time?',
+    opts: [
+      'Honestly not sure — I haven\'t thought that far ahead.',
+      'Catch up on work I\'m always behind on.',
+      'Focus on sales, growth, or the parts of the business I actually enjoy.',
+      'I\'ve already planned exactly where that time would go — this is something I\'m actively working toward.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Ethics & Risk',
+    text: 'When AI generates content you publish or send to customers, what is your process?',
+    opts: [
+      'I use it as-is if it looks fine.',
+      'I read it over but rarely change much.',
+      'I always review, edit for accuracy, and make sure it sounds like my brand.',
+      'I treat AI output as a first draft — I verify facts, add my voice, and take full ownership of it.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Bandwidth & ROI',
+    text: 'What is your biggest barrier to using AI more in your business?',
+    opts: [
+      'I don\'t know where to start or what\'s relevant to my type of business.',
+      'I\'ve tried but haven\'t seen results that justify the time investment.',
+      'Cost — I\'m not sure the tools fit my budget.',
+      'Honestly, not much. I\'m already using it and want to go deeper.'
+    ],
+    scores: [1,2,3,4]
+  },
+  {
+    cat: 'Workflow Integration',
+    text: 'Where do you want your business to be with AI in the next 6 months?',
+    opts: [
+      'Using at least one AI tool consistently.',
+      'Saving real hours every week on tasks we currently do manually.',
+      'Running at least one full business function with AI in the loop.',
+      'Operating leaner than our competitors because AI is built into how we work.'
+    ],
+    scores: [1,2,3,4]
+  }
+];
+
 const LETTERS = ['A','B','C','D'];
-let currentTrack = 'corporate';
+let currentTrack = 'individual';
 let current = 0;
 let answers = new Array(12).fill(null);
 
@@ -1149,7 +1298,9 @@ function selectTrack(track) {
 }
 
 function activeQuestions() {
-  return currentTrack === 'individual' ? questionsIndividual : questions;
+  if (currentTrack === 'individual') return questionsIndividual;
+  if (currentTrack === 'smallbiz') return questionsSmallBiz;
+  return questions;
 }
 
 function goTo(pageId) {
@@ -1174,7 +1325,7 @@ function renderQ(i) {
       `).join('')}
     </div>
   `;
-  const trackLabel = currentTrack === 'individual' ? 'Individual' : 'Corporate';
+  const trackLabel = currentTrack === 'individual' ? 'Individual' : currentTrack === 'smallbiz' ? 'SME' : 'Corporate';
   document.getElementById('q-counter').textContent = `${trackLabel} · ${i+1} / 12`;
   document.getElementById('q-progress').style.width = `${((i+1)/12)*100}%`;
   document.getElementById('btn-back').disabled = i === 0;
@@ -1229,7 +1380,7 @@ function showGate() {
   goTo('gate');
 }
 
-function submitEmail() {
+async function submitEmail() {
   const email = document.getElementById('email-field').value;
   if (!email || !email.includes('@')) {
     alert('Please enter a valid email address.');
@@ -1237,6 +1388,17 @@ function submitEmail() {
   }
   document.getElementById('btn-unlock').disabled = true;
   document.getElementById('btn-unlock').textContent = 'Unlocking…';
+
+  const score = totalScore();
+  const { level } = getLevel(score);
+  const trackLabel = currentTrack === 'smallbiz' ? 'Small Business Owner' : currentTrack === 'individual' ? 'Individual' : 'Corporate';
+
+  fetch('https://formspree.io/f/mvzynwra', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, score, level, track: trackLabel })
+  }).catch(() => {});
+
   goTo('generating');
   runGeneratingSteps();
 }
@@ -1279,7 +1441,7 @@ A professional just completed the 12-question assessment. Here are their results
 
 Overall Score: ${score}/48
 Level: ${level}
-Track: ${currentTrack}
+Track: ${currentTrack === 'smallbiz' ? 'Small Business Owner' : currentTrack === 'individual' ? 'Individual' : 'Corporate'}
 
 Category Scores:
 ${catSummary}
@@ -1363,7 +1525,7 @@ function fallbackReport(level, weak, strong) {
 }
 
 function fallbackCTA(level, weak) {
-  return `Based on your score, your ${weak} gap is costing you more than you have measured. Unstuck gives you the frameworks and AI systems to close it — without adding to your plate.`;
+  return `Based on your score, your ${weak} gap is costing you more than you have measured. Unstuck gives you the frameworks and systems to close it — without adding to your plate.`;
 }
 
 function renderBreakdown(cats) {
