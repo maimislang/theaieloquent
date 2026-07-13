@@ -1,5 +1,5 @@
 const Q=[
-['Concepts & Models','What is a large language model?',['A database that only retrieves stored answers','A model trained to predict and generate language from patterns in data','A browser extension','A file that stores passwords'],1],
+['Concepts & Models','Which description correctly matches OpenAI’s GPT‑5.6 family?',['Sol is the flagship, Terra is balanced for everyday work, and Luna is the fastest and most affordable','Luna is the flagship, Sol is image-only, and Terra is voice-only','All three are identical names for ChatGPT subscription plans','Sol, Terra, and Luna are OpenClaw workspace files'],0],
 ['Concepts & Models','What is a context window?',['The input and conversation a model can consider at one time','The browser window containing a chat','The number of account users','The time before a chat expires'],0],
 ['Concepts & Models','What is a token?',['Exactly one word','A chunk of text a model reads or writes','An account password','A truth score'],1],
 ['Concepts & Models','Which description of OpenClaw is most accurate?',['A photo editor','An open-source agent system connecting models to tools, files, and channels','Claude web search','An image benchmark'],1],
